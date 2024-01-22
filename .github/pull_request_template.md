@@ -12,6 +12,7 @@ being merged -->
 
 <!-- can remove content below if issues have been referenced above -->
 
+- [ ] From command line, run `fly deploy` and verify success.
 - [ ] Perform basic happy path test in the UI.
 
 ***
