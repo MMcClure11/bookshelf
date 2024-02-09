@@ -15,5 +15,5 @@ defmodule Bookshelf.Books.Book do
 
   @enforce_keys [:title, :author, :genre, :status]
 
-  defstruct [:title, :author, :genre, :review, :date_read, :status, :cover_art]
+  defstruct @enforce_keys ++ [:review, :date_read, :cover_art]
 end
