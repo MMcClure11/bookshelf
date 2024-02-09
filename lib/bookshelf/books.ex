@@ -6,6 +6,7 @@ defmodule Bookshelf.Books do
   alias Bookshelf.Books.Book
 
   @books "#{File.cwd!()}/priv/books.toml"
+  @statuses ["want_to_read", "in_progress", "complete"]
 
   @doc """
   Decodes the list of books from `Toml` to an elixir list of maps for each
@@ -27,20 +28,13 @@ defmodule Bookshelf.Books do
     books = list_books()
 
     Enum.map(books, fn book ->
-      fields =
-        Enum.reduce(
-          [:title, :author, :genre, :status, :date_read, :review, :cover_art],
-          [],
-          fn field, acc ->
-            if field == :status do
-              acc ++ ["#{field}": book |> Map.get(to_string(field)) |> String.to_existing_atom()]
-            else
-              acc ++ ["#{field}": Map.get(book, to_string(field))]
-            end
-          end
-        )
-
-      struct!(Book, fields)
+      book
+      |> Map.new(fn {k, v} -> {String.to_existing_atom(k), parse_value(v)} end)
+      |> then(&struct!(Book, &1))
     end)
   end
+
+  @spec parse_value(String.t()) :: String.t() | atom()
+  defp parse_value(value) when value in @statuses, do: String.to_existing_atom(value)
+  defp parse_value(value), do: value
 end
