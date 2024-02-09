@@ -1,0 +1,19 @@
+[[books]]
+author = "N. K. Jemisin"
+title = "The Fifth Season"
+genre = "Science Fiction"
+status = "complete"
+date_read = 2022-05-27
+review = "I really liked it"
+
+[[books]]
+author = "Patrick Rothfuss"
+title = "The Name of the Wind"
+genre = "Fantasy"
+status = "want_to_read"
+
+[[books]]
+author = "Becky Chandler"
+title = "A Psalm to the Wild Built"
+genre = "Science Fiction"
+status = "in_progress"
