@@ -9,8 +9,7 @@ defmodule Bookshelf.Books do
   @statuses ["want_to_read", "in_progress", "complete"]
 
   @doc """
-  Decodes the list of books from `Toml` to an elixir list of maps for each
-  book.
+  Decodes a list of books from [TOML](https://toml.io/) to a list of maps.
   """
   @spec list_books() :: keyword()
   def list_books() do
@@ -20,8 +19,7 @@ defmodule Bookshelf.Books do
   end
 
   @doc """
-  Transforms the list of books as maps into a list of `Bookshelf.Books.Book`
-  structs.
+  Transforms a list of books as maps into a list of `Bookshelf.Books.Book`s.
   """
   @spec create_book_structs() :: [Book.t()]
   def create_book_structs() do
