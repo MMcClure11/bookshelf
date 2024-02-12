@@ -4,6 +4,22 @@ defmodule BookshelfWeb.BasicDisplayHTML do
   def index(assigns) do
     ~H"""
     <h1 class="px-2 py-4 text-xl font-bold text-slate-900">The Bookshelf</h1>
+    <div class="py-2">
+      <%= Phoenix.HTML.Tag.form_tag("/bookshelf/basic-display", method: "post") do %>
+        <input
+          type="text"
+          name="query"
+          value={@query}
+          placeholder="Search by Title or Author"
+          class="border border-slate-600 bg-slate-200 text-slate-600"
+        />
+        <input
+          type="submit"
+          class="cursor-pointer border border-slate-600 bg-slate-500 p-2 font-semibold text-slate-200"
+          value="Search"
+        />
+      <% end %>
+    </div>
     <table class="border-separate border-spacing-1 border border-slate-500 bg-slate-800">
       <thead>
         <tr>

@@ -55,4 +55,28 @@ defmodule Bookshelf.Books do
   defp parse_status("want_to_read"), do: :want_to_read
   defp parse_status("in_progress"), do: :in_progress
   defp parse_status("complete"), do: :complete
+
+  @doc """
+  Returns a list of `Bookshelf.Books.Book`s where the given string is found in
+  the `:title` or `:author` field.
+  """
+  @spec filter_books(String.t()) :: [Book.t()]
+  def filter_books(search_query) do
+    books = create_book_structs()
+
+    Enum.filter(
+      books,
+      fn book ->
+        check_match(book, :title, search_query) || check_match(book, :author, search_query)
+      end
+    )
+  end
+
+  @spec check_match(Book.t(), :author | :title, String.t()) :: boolean()
+  defp check_match(book, key, search_query) do
+    book
+    |> Map.get(key)
+    |> String.downcase()
+    |> String.contains?(String.downcase(search_query))
+  end
 end
