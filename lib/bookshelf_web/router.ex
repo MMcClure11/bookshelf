@@ -20,6 +20,12 @@ defmodule BookshelfWeb.Router do
     get "/", PageController, :home
   end
 
+  scope "/bookshelf", BookshelfWeb do
+    pipe_through :browser
+
+    get "/basic-display", BasicDisplayController, :index
+  end
+
   # Other scopes may use custom stacks.
   # scope "/api", BookshelfWeb do
   #   pipe_through :api
