@@ -3,7 +3,7 @@ defmodule BookshelfWeb.BasicDisplayHTML do
 
   def index(assigns) do
     ~H"""
-    <h1 class="text-xl font-bold text-slate-900 px-2 py-4">The Bookshelf</h1>
+    <h1 class="px-2 py-4 text-xl font-bold text-slate-900">The Bookshelf</h1>
     <table class="border-separate border-spacing-1 border border-slate-500 bg-slate-800">
       <thead>
         <tr>
@@ -35,7 +35,7 @@ defmodule BookshelfWeb.BasicDisplayHTML do
 
   defp column_header(assigns) do
     ~H"""
-    <th class="border border-slate-600 p-2 text-slate-100 bg-slate-500"><%= @text %></th>
+    <th class="border border-slate-600 bg-slate-500 p-2 text-slate-100"><%= @text %></th>
     """
   end
 
