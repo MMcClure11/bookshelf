@@ -27,12 +27,13 @@ defmodule Bookshelf.Books do
 
     Enum.map(books, fn book ->
       book
-      |> Map.new(fn {k, v} -> {String.to_existing_atom(k), parse_value(v)} end)
+      |> Map.new(fn {k, v} -> {String.to_existing_atom(k), parse_value(k, v)} end)
       |> then(&struct!(Book, &1))
     end)
   end
 
-  @spec parse_value(String.t()) :: String.t() | atom()
-  defp parse_value(value) when value in @statuses, do: String.to_existing_atom(value)
-  defp parse_value(value), do: value
+  @spec parse_value(String.t(), String.t()) :: String.t() | atom() | [String.t()]
+  defp parse_value("status", value) when value in @statuses, do: String.to_existing_atom(value)
+  defp parse_value("review", value), do: String.split(value, "\n\n")
+  defp parse_value(_, value), do: value
 end
