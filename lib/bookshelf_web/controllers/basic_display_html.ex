@@ -49,11 +49,6 @@ defmodule BookshelfWeb.BasicDisplayHTML do
     """
   end
 
-  @spec parse_status(:want_to_read | :in_progress | :complete) :: String.t()
-  defp parse_status(:want_to_read), do: "Want to read"
-  defp parse_status(:in_progress), do: "In progress…"
-  defp parse_status(:complete), do: "Complete"
-
   attr :value, :list, required: true
 
   defp review(%{value: nil} = assigns), do: ~H""
@@ -65,4 +60,9 @@ defmodule BookshelfWeb.BasicDisplayHTML do
     <% end %>
     """
   end
+
+  @spec parse_status(:want_to_read | :in_progress | :complete) :: String.t()
+  defp parse_status(:want_to_read), do: "Want to read"
+  defp parse_status(:in_progress), do: "In progress…"
+  defp parse_status(:complete), do: "Complete"
 end
