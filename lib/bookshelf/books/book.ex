@@ -8,7 +8,7 @@ defmodule Bookshelf.Books.Book do
           author: String.t(),
           genre: String.t(),
           status: :want_to_read | :in_progress | :complete,
-          review: String.t(),
+          review: [String.t()],
           date_read: Date.t(),
           cover_art: String.t()
         }

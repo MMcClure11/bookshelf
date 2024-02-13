@@ -2,15 +2,20 @@
 author = "N. K. Jemisin"
 title = "The Fifth Season"
 genre = "Science Fiction"
-status = "complete"
-date_read = 2022-05-27
-review = "I really liked it"
+status = "want_to_read"
 
 [[books]]
 author = "Patrick Rothfuss"
 title = "The Name of the Wind"
 genre = "Fantasy"
-status = "want_to_read"
+status = "complete"
+date_read = 2022-05-27
+review = """
+“It's like everyone tells a story about themselves inside their own head. Always. All the time. That story makes you what you are. We build ourselves out of that story.”
+
+“We understand how dangerous a mask can be. We all become what we pretend to be.”
+
+This epic tale took me away to a new universe and world where I got to experience some of my favorite aspects of high fantasy, magic, dragons, and wild adventures."""
 
 [[books]]
 author = "Becky Chandler"
