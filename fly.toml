@@ -29,3 +29,7 @@ kill_signal = "SIGTERM"
   cpu_kind = "shared"
   cpus = 1
   memory_mb = 1024
+
+[[files]]
+  guest_path = "/books.toml"
+  local_path = "/Users/mmcclure/Code/bookshelf/priv/books.toml"
