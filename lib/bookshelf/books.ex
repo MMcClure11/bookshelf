@@ -5,16 +5,22 @@ defmodule Bookshelf.Books do
 
   alias Bookshelf.Books.Book
 
-  @books "#{File.cwd!()}/priv/books.toml"
-
   @doc """
   Decodes a list of books from [TOML](https://toml.io/) to a list of maps.
   """
   @spec list_books() :: keyword()
   def list_books() do
-    input = File.read!(@books)
+    input = File.read!(data_path())
     %{"books" => books} = Toml.decode!(input)
     books
+  end
+
+  @spec data_path() :: String.t()
+  defp data_path() do
+    case System.get_env("PHX_HOST") do
+      "bookshelf-meks.fly.dev" -> "/books.toml"
+      _ -> "#{File.cwd!()}/priv/books.toml"
+    end
   end
 
   @doc """
