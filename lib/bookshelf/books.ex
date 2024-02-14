@@ -26,13 +26,27 @@ defmodule Bookshelf.Books do
 
     Enum.map(books, fn book ->
       book
-      |> Map.new(fn {k, v} -> {String.to_existing_atom(k), parse_value(k, v)} end)
+      |> Map.new(fn {k, v} -> {parse_key(k), parse_value(k, v)} end)
       |> then(&struct!(Book, &1))
     end)
   end
 
+  @spec parse_key(String.t()) :: atom()
+  defp parse_key("title"), do: :title
+  defp parse_key("author"), do: :author
+  defp parse_key("genre"), do: :genre
+  defp parse_key("status"), do: :status
+  defp parse_key("review"), do: :review
+  defp parse_key("date_read"), do: :date_read
+  defp parse_key("cover_art"), do: :cover_art
+
   @spec parse_value(String.t(), String.t()) :: String.t() | atom() | [String.t()]
-  defp parse_value("status", value), do: String.to_existing_atom(value)
+  defp parse_value("status", value), do: parse_status(value)
   defp parse_value("review", value), do: String.split(value, "\n\n")
   defp parse_value(_, value), do: value
+
+  @spec parse_status(String.t()) :: atom()
+  defp parse_status("want_to_read"), do: :want_to_read
+  defp parse_status("in_progress"), do: :in_progress
+  defp parse_status("complete"), do: :complete
 end
