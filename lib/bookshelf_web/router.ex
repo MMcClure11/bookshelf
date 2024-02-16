@@ -24,6 +24,7 @@ defmodule BookshelfWeb.Router do
     pipe_through :browser
 
     get "/basic-display", BasicDisplayController, :index
+    post "/basic-display", BasicDisplayController, :index
   end
 
   # Other scopes may use custom stacks.
