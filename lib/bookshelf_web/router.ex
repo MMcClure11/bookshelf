@@ -25,6 +25,8 @@ defmodule BookshelfWeb.Router do
 
     get "/basic-display", BasicDisplayController, :index
     post "/basic-display", BasicDisplayController, :index
+
+    get "/custom-styles", CustomStylesController, :index
   end
 
   # Other scopes may use custom stacks.
