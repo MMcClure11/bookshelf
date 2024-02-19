@@ -32,4 +32,4 @@ kill_signal = "SIGTERM"
 
 [[files]]
   guest_path = "/books.toml"
-  local_path = "/Users/mmcclure/Code/bookshelf/priv/books.toml"
+  local_path = "priv/books.toml"
