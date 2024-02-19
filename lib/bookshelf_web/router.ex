@@ -17,14 +17,8 @@ defmodule BookshelfWeb.Router do
   scope "/", BookshelfWeb do
     pipe_through :browser
 
-    get "/", PageController, :home
-  end
-
-  scope "/bookshelf", BookshelfWeb do
-    pipe_through :browser
-
-    get "/basic-display", BasicDisplayController, :index
-    post "/basic-display", BasicDisplayController, :index
+    get "/", BasicDisplayController, :index
+    post "/", BasicDisplayController, :index
 
     get "/custom-styles", CustomStylesController, :index
   end
