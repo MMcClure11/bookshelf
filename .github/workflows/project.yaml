@@ -13,8 +13,6 @@ jobs:
   build:
     name: Build and test
     runs-on: ubuntu-latest
-    concurrency:
-      group: project-group
     steps:
     - uses: actions/checkout@v3
     - name: Set up Elixir
@@ -37,8 +35,7 @@ jobs:
     name: Deploy app
     if: github.event_name == 'push'
     runs-on: ubuntu-latest
-    concurrency:
-      group: project-group
+    needs: build
     steps:
       - uses: actions/checkout@v3
       - uses: superfly/flyctl-actions/setup-flyctl@master
