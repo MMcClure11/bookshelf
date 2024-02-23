@@ -9,11 +9,10 @@ being merged -->
 ### Code Checklist
 
 - [ ] Review your code.
+- [ ] Relevant tests added/modified.
+- [ ] Perform basic happy path test in the UI.
 
 <!-- can remove content below if issues have been referenced above -->
-
-- [ ] From command line, run `fly deploy` and verify success.
-- [ ] Perform basic happy path test in the UI.
 
 ***
 
