@@ -35,3 +35,4 @@ bookshelf-*.tar
 npm-debug.log
 /assets/node_modules/
 
+NOTES.md
