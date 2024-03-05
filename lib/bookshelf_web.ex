@@ -85,6 +85,7 @@ defmodule BookshelfWeb do
       import Phoenix.HTML
       # Core UI components and translation
       import BookshelfWeb.CoreComponents
+      import BookshelfWeb.Helpers
       import BookshelfWeb.Gettext
 
       # Shortcut for generating JS commands

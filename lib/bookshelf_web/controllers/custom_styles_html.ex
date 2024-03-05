@@ -3,8 +3,95 @@ defmodule BookshelfWeb.CustomStylesHTML do
 
   def index(assigns) do
     ~H"""
-    <h1>The Bookshelf</h1>
-    <p>Custom Styling</p>
+    <h1 class="text-dragonhide-100 py-4 font-['Kalnia'] text-[2rem] font-semibold leading-none">
+      The Bookshelf
+    </h1>
+    <table class="w-full table-fixed text-left">
+      <thead>
+        <tr class="text-dragonhide-100 bg-dragonhide-800 text-xs font-bold uppercase leading-none tracking-wider">
+          <.column_header text="Title" />
+          <.column_header text="Author" />
+          <.column_header text="Genre" />
+          <.column_header text="Review" />
+          <.column_header text="Status/Date Read" />
+        </tr>
+      </thead>
+      <tbody>
+        <%= for book <- @books do %>
+          <tr class="text-dragonhide-100 bg-dragonhide-400 odd:bg-dragonhide-500 font-serif text-sm leading-normal">
+            <.cell_data><%= book.title %></.cell_data>
+            <.cell_data><%= book.author %></.cell_data>
+            <.cell_data><%= book.genre %></.cell_data>
+            <.cell_data class="font-sans text-xs leading-snug">
+              <.review value={book.review} />
+            </.cell_data>
+            <.cell_data><%= parse_status_and_date_read(book) %></.cell_data>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
     """
   end
+
+  attr :text, :string, required: true
+
+  defp column_header(assigns) do
+    ~H"""
+    <th class="p-4"><%= @text %></th>
+    """
+  end
+
+  attr :class, :string, default: ""
+  slot :inner_block
+
+  defp cell_data(assigns) do
+    ~H"""
+    <td class={["p-4", @class]}>
+      <%= render_slot(@inner_block) %>
+    </td>
+    """
+  end
+
+  attr :value, :list, required: true
+
+  defp review(%{value: nil} = assigns) do
+    ~H"""
+    <p>— —</p>
+    """
+  end
+
+  defp review(assigns) do
+    ~H"""
+    <%= for item <- @value do %>
+      <p class="mb-2 last:mb-0"><%= item %></p>
+    <% end %>
+    """
+  end
+
+  @spec parse_status_and_date_read(Bookshelf.Books.Book.t()) :: String.t()
+  defp parse_status_and_date_read(%{status: :want_to_read}), do: "Want to Read"
+  defp parse_status_and_date_read(%{status: :in_progress}), do: "In Progress"
+
+  defp parse_status_and_date_read(%{status: :complete, date_read: date_read}),
+    do: "Complete (#{transform_date_read(date_read)})"
+
+  @spec transform_date_read(Date.t()) :: String.t()
+  defp transform_date_read(date_read) do
+    {year, month, day} = Date.to_erl(date_read)
+    "#{month_abbrev(month)} #{day}, #{year}"
+  end
+
+  @spec month_abbrev(Integer.t()) :: String.t()
+  defp month_abbrev(1), do: "Jan"
+  defp month_abbrev(2), do: "Feb"
+  defp month_abbrev(3), do: "Mar"
+  defp month_abbrev(4), do: "Apr"
+  defp month_abbrev(5), do: "May"
+  defp month_abbrev(6), do: "Jun"
+  defp month_abbrev(7), do: "Jul"
+  defp month_abbrev(8), do: "Aug"
+  defp month_abbrev(9), do: "Sep"
+  defp month_abbrev(10), do: "Oct"
+  defp month_abbrev(11), do: "Nov"
+  defp month_abbrev(12), do: "Dec"
 end
