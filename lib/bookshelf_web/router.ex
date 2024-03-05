@@ -23,6 +23,8 @@ defmodule BookshelfWeb.Router do
     get "/custom-styles", CustomStylesController, :index
     post "/custom-styles", CustomStylesController, :index
     get "/design", DesignController, :index
+
+    live "/live-filter", LiveFilterLive
   end
 
   # Other scopes may use custom stacks.
