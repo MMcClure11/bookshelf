@@ -4,6 +4,7 @@
 const plugin = require("tailwindcss/plugin")
 const fs = require("fs")
 const path = require("path")
+const colors = require("./colors.json")
 
 module.exports = {
   content: [
@@ -13,9 +14,7 @@ module.exports = {
   ],
   theme: {
     extend: {
-      colors: {
-        brand: "#FD4F00",
-      }
+      colors: colors,
     },
   },
   plugins: [
