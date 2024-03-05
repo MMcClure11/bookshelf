@@ -5,7 +5,7 @@ defmodule BookshelfWeb.BasicDisplayHTML do
     ~H"""
     <h1 class="px-2 py-4 text-xl font-bold text-slate-900">The Bookshelf</h1>
     <div class="py-2">
-      <%= Phoenix.HTML.Tag.form_tag("/", method: "post") do %>
+      <%= Phoenix.HTML.Tag.form_tag(~p(/), method: "post") do %>
         <input
           type="text"
           name="query"
