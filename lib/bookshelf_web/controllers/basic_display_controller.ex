@@ -4,8 +4,7 @@ defmodule BookshelfWeb.BasicDisplayController do
   alias Bookshelf.Books
 
   def index(conn, %{"query" => query}) do
-    books =
-      Books.filter_books(query)
+    books = Books.filter_books(query)
 
     conn
     |> assign(:books, books)
@@ -14,8 +13,7 @@ defmodule BookshelfWeb.BasicDisplayController do
   end
 
   def index(conn, _params) do
-    books =
-      Books.create_book_structs()
+    books = Books.create_book_structs()
 
     conn
     |> assign(:books, books)
