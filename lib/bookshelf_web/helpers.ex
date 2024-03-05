@@ -16,5 +16,6 @@ defmodule BookshelfWeb.Helpers do
 
   @spec get_background_color(String.t()) :: String.t()
   defp get_background_color("/custom-styles" <> _), do: "bg-dragonhide-600"
+  defp get_background_color("/live-filter" <> _), do: "bg-dragonhide-600"
   defp get_background_color(_), do: "bg-white"
 end
