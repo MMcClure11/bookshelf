@@ -21,6 +21,7 @@ defmodule BookshelfWeb.Router do
     post "/", BasicDisplayController, :index
 
     get "/custom-styles", CustomStylesController, :index
+    post "/custom-styles", CustomStylesController, :index
     get "/design", DesignController, :index
   end
 
