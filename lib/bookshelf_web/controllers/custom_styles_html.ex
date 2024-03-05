@@ -3,9 +3,47 @@ defmodule BookshelfWeb.CustomStylesHTML do
 
   def index(assigns) do
     ~H"""
-    <h1 class="text-dragonhide-100 py-4 font-['Kalnia'] text-[2rem] font-semibold leading-none">
+    <h1 class="text-dragonhide-100 pb-6 font-['Kalnia'] text-[2rem] font-semibold leading-none">
       The Bookshelf
     </h1>
+
+    <div class="mb-16">
+      <%= Phoenix.HTML.Tag.form_tag(~p(/custom-styles), method: "post") do %>
+        <div class="flex gap-2">
+          <div class="relative">
+            <input
+              type="text"
+              name="query"
+              value={@query}
+              placeholder="Enter a search term"
+              class="bg-dragonhide-200 placeholder:text-dragonhide-400 text-dragonhide-600 h-12 w-80 rounded-sm indent-7 text-base leading-none tracking-normal"
+            />
+            <div class="pointer-events-none absolute inset-y-0 flex items-center pl-3">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="1.5"
+                stroke="#594544"
+                class="h-5 w-5"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"
+                />
+              </svg>
+            </div>
+          </div>
+          <input
+            type="submit"
+            class="bg-ooze-400 hover:from-ooze-100 hover:to-ooze-400 active:from-ooze-400 active:to-ooze-400 text-dragonhide-100 h-12 w-24 cursor-pointer rounded-sm text-sm font-semibold leading-tight tracking-normal transition-all hover:bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))]"
+            value="Search"
+          />
+        </div>
+      <% end %>
+    </div>
+
     <table class="w-full table-fixed text-left">
       <thead>
         <tr class="text-dragonhide-100 bg-dragonhide-800 text-xs font-bold uppercase leading-none tracking-wider">
