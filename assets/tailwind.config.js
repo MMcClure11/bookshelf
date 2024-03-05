@@ -13,6 +13,11 @@ module.exports = {
     "../lib/bookshelf_web/**/*.*ex"
   ],
   theme: {
+    // Overrides the default Tailwind fonts.
+    fontFamily: {
+      'sans': ['Noto Sans', 'sans-serif'],
+      'serif': ['Noto Serif', 'serif'],
+    },
     extend: {
       colors: colors,
     },

@@ -32,6 +32,30 @@ defmodule BookshelfWeb.DesignHTML do
         <div class="bg-silver h-8 w-16" />
       </div>
     </div>
+
+    <h2 class="my-4 text-xl font-bold">Font Families</h2>
+    <table class="border">
+      <thead>
+        <tr>
+          <th class="border p-4">Font Family</th>
+          <th class="border p-4">Example</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="border p-4 font-sans">Sans (default)</td>
+          <td class="border p-4 font-sans">The quick brown fox jumps over the lazy dog.</td>
+        </tr>
+        <tr>
+          <td class="border p-4 font-serif">Serif</td>
+          <td class="border p-4 font-serif">The quick brown fox jumps over the lazy dog.</td>
+        </tr>
+        <tr>
+          <td class="border p-4 font-['kalnia']">Kalnia</td>
+          <td class="border p-4 font-['kalnia']">The quick brown fox jumps over the lazy dog.</td>
+        </tr>
+      </tbody>
+    </table>
     """
   end
 end
