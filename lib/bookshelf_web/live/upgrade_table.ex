@@ -139,9 +139,9 @@ defmodule BookshelfWeb.UpgradeTableLive do
 
   defp status_and_date_read(assigns) do
     ~H"""
-    <div class={["bg-#{status_color(@status)} w-fit rounded-full px-4 py-2"]}>
+    <div class={["bg-#{parse_status(@status, :color)} w-fit rounded-full px-4 py-2"]}>
       <p class={pill_text_class()}>
-        <%= parse_status(assigns) %>
+        <%= parse_status(@status, :text) %>
       </p>
     </div>
     """
@@ -171,11 +171,9 @@ defmodule BookshelfWeb.UpgradeTableLive do
   defp month_abbrev(11), do: "Nov"
   defp month_abbrev(12), do: "Dec"
 
-  @spec status_color(atom()) :: String.t()
-  defp status_color(:want_to_read), do: "silver"
-  defp status_color(:in_progress), do: "copper"
-
-  @spec parse_status(map()) :: String.t()
-  defp parse_status(%{status: :want_to_read}), do: "Want to Read"
-  defp parse_status(%{status: :in_progress}), do: "In Progress"
+  @spec parse_status(atom(), atom()) :: String.t()
+  defp parse_status(:want_to_read, :text), do: "Want to Read"
+  defp parse_status(:in_progress, :text), do: "In Progress"
+  defp parse_status(:want_to_read, :color), do: "silver"
+  defp parse_status(:in_progress, :color), do: "copper"
 end
