@@ -11,11 +11,44 @@ defmodule BookshelfWeb.UpgradeTableLive do
   end
 
   @impl Phoenix.LiveView
+  def handle_event("change", %{"search" => %{"query" => query}}, socket) do
+    {:noreply, assign(socket, :books, Books.filter_books(query))}
+  end
+
+  @impl Phoenix.LiveView
   def render(assigns) do
     ~H"""
     <h1 class="text-dragonhide-100 pb-6 font-['Kalnia'] text-[2rem] font-semibold leading-none">
       The Bookshelf
     </h1>
+
+    <form action="" novalidate="" role="search" phx-change="change" class="mb-16">
+      <div class="relative">
+        <input
+          id="search-input"
+          name="search[query]"
+          type="text"
+          class="bg-dragonhide-200 placeholder:text-dragonhide-400 text-dragonhide-600 h-12 w-80 rounded-sm indent-7 text-base leading-none tracking-normal"
+          placeholder="Type to filter…"
+        />
+        <div class="pointer-events-none absolute inset-y-0 flex items-center pl-3">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="#594544"
+            class="h-5 w-5"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"
+            />
+          </svg>
+        </div>
+      </div>
+    </form>
 
     <table class="w-full table-fixed text-left">
       <thead>
