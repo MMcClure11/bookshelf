@@ -17,13 +17,17 @@ defmodule BookshelfWeb.Router do
   scope "/", BookshelfWeb do
     pipe_through :browser
 
+    get "/design", DesignController, :index
+
+    # Phase 1
     get "/", BasicDisplayController, :index
     post "/", BasicDisplayController, :index
 
+    # Phase 2
     get "/custom-styles", CustomStylesController, :index
     post "/custom-styles", CustomStylesController, :index
-    get "/design", DesignController, :index
 
+    # Phase 3
     live "/live-filter", LiveFilterLive
   end
 
