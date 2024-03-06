@@ -19,4 +19,12 @@ defmodule BookshelfWeb.Helpers do
   defp get_background_color("/live-filter" <> _), do: "bg-dragonhide-600"
   defp get_background_color("/upgrade-table" <> _), do: "bg-dragonhide-600"
   defp get_background_color(_), do: "bg-white"
+
+  @doc """
+  Styling for navigation links.
+  """
+  @spec navigation_link_styles :: String.t()
+  def navigation_link_styles do
+    "text-dragonhide-300 hover:text-dragonhide-200 duration-250 transform text-xs font-semibold uppercase transition hover:scale-105"
+  end
 end
