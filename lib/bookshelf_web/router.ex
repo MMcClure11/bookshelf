@@ -29,6 +29,9 @@ defmodule BookshelfWeb.Router do
 
     # Phase 3
     live "/live-filter", LiveFilterLive
+
+    # Phase 4
+    live "/upgrade-table", UpgradeTableLive
   end
 
   # Other scopes may use custom stacks.
