@@ -18,6 +18,7 @@ defmodule BookshelfWeb.Helpers do
   defp get_background_color("/custom-styles" <> _), do: "bg-dragonhide-600"
   defp get_background_color("/live-filter" <> _), do: "bg-dragonhide-600"
   defp get_background_color("/upgrade-table" <> _), do: "bg-dragonhide-600"
+  defp get_background_color("/modal" <> _), do: "bg-dragonhide-600"
   defp get_background_color(_), do: "bg-white"
 
   @doc """
