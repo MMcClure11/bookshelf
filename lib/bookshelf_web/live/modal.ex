@@ -8,12 +8,36 @@ defmodule BookshelfWeb.ModalLive do
 
   @impl Phoenix.LiveView
   def mount(_, _, socket) do
-    {:ok, assign(socket, :books, Books.create_book_structs())}
+    socket =
+      socket
+      |> assign(:details, nil)
+      |> assign(:books, Books.create_book_structs())
+
+    {:ok, socket}
   end
 
   @impl Phoenix.LiveView
   def handle_event("change", %{"search" => %{"query" => query}}, socket) do
     {:noreply, assign(socket, :books, Books.filter_books(query))}
+  end
+
+  @impl Phoenix.LiveView
+  def handle_event("show_details", %{"title" => title}, socket) do
+    book = Books.get_book_by_title(title)
+    {:noreply, assign(socket, :details, book)}
+  end
+
+  @impl Phoenix.LiveView
+  def handle_event("hide_details", _value, socket) do
+    {:noreply, assign(socket, :details, nil)}
+  end
+
+  def handle_event("esc_details", %{"key" => "Escape"}, socket) do
+    {:noreply, assign(socket, :details, nil)}
+  end
+
+  def handle_event("esc_details", _value, socket) do
+    {:noreply, socket}
   end
 
   @impl Phoenix.LiveView
@@ -54,17 +78,89 @@ defmodule BookshelfWeb.ModalLive do
             <.cell_data><%= book.title %></.cell_data>
             <.cell_data><%= book.author %></.cell_data>
             <.cell_data><%= book.genre %></.cell_data>
-            <.cell_data class="font-sans text-xs leading-snug">
-              <.review value={book.review} />
+            <.cell_data class="focus-within:border-ooze-300 font-sans text-xs leading-snug focus-within:border-2">
+              <button
+                phx-click={JS.push("show_details", value: %{title: book.title}) |> hide_overflow()}
+                tabindex="0"
+                class="duration-250 hocus:scale-105 w-full transform transition focus:outline-none"
+                aria-label={"#{book.title} details"}
+              >
+                <.review value={book.review} />
+              </button>
             </.cell_data>
-            <.cell_data>
+            <.cell_data class="flex">
               <.status_and_date_read status={book.status} date_read={book.date_read} />
             </.cell_data>
           </tr>
         <% end %>
       </tbody>
     </table>
+
+    <div :if={@details} class="relative z-10">
+      <div class="fixed inset-0 bg-black/[.66]" aria-hidden="true" />
+      <div
+        class="fixed inset-0 overflow-y-auto"
+        aria-labelledby={"#{@details.title}-title"}
+        role="dialog"
+        aria-modal="true"
+        tabindex="0"
+      >
+        <div class="flex min-h-full items-center justify-center">
+          <.focus_wrap
+            id={"#{@details.title}-container"}
+            phx-click-away={JS.push("hide_details") |> show_overflow()}
+            phx-window-keyup={JS.push("esc_details") |> show_overflow()}
+            class="bg-rust-900 relative w-7/12 rounded-sm p-20 shadow-2xl"
+          >
+            <button
+              phx-click={JS.push("hide_details") |> show_overflow()}
+              type="button"
+              class="focus:border-dragonhide-300 absolute left-7 top-7 text-white focus:border focus:outline-none"
+              aria-label={gettext("close")}
+            >
+              <.icon name="hero-x-mark" class="h-6 w-6" />
+            </button>
+            <div id={"#{@details.title}-content"}>
+              <div class="flex gap-12">
+                <img
+                  class="h-80"
+                  src={
+                    if is_nil(@details.cover_art),
+                      do:
+                        "https://static.vecteezy.com/system/resources/previews/027/205/141/original/hand-draw-open-book-lying-on-high-stack-of-books-isolated-free-vector.jpg",
+                      else: @details.cover_art
+                  }
+                  alt={@details.title}
+                />
+                <div class="flex w-full flex-col gap-6">
+                  <div class="flex justify-between">
+                    <div>
+                      <h1 class="text-dragonhide-100 font-serif text-4xl leading-tight">
+                        <%= @details.title %>
+                      </h1>
+                      <h2 class="text-dragonhide-300 text-base uppercase leading-tight tracking-wider">
+                        By <%= @details.author %>
+                      </h2>
+                    </div>
+                    <.status_and_date_read status={@details.status} date_read={@details.date_read} />
+                  </div>
+                  <.full_review value={@details.review} />
+                </div>
+              </div>
+            </div>
+          </.focus_wrap>
+        </div>
+      </div>
+    </div>
     """
+  end
+
+  defp hide_overflow(js) do
+    JS.add_class(js, "overflow-y-hidden", to: "#body")
+  end
+
+  defp show_overflow(js) do
+    JS.remove_class(js, "overflow-y-hidden", to: "#body")
   end
 
   attr :text, :string, required: true
@@ -90,13 +186,29 @@ defmodule BookshelfWeb.ModalLive do
 
   defp review(%{value: nil} = assigns) do
     ~H"""
-    <p>— —</p>
+    <p class="text-left">— —</p>
     """
   end
 
   defp review(assigns) do
     ~H"""
-    <p class="line-clamp-2"><%= List.first(@value) %></p>
+    <p class="line-clamp-2 text-left"><%= List.first(@value) %></p>
+    """
+  end
+
+  attr :value, :list, required: true
+
+  defp full_review(%{value: nil} = assigns) do
+    ~H"""
+    <p class="text-dragonhide-100">— —</p>
+    """
+  end
+
+  defp full_review(assigns) do
+    ~H"""
+    <%= for item <- @value do %>
+      <p class="text-dragonhide-100 mb-2 font-serif text-base leading-snug last:mb-0"><%= item %></p>
+    <% end %>
     """
   end
 
@@ -116,7 +228,7 @@ defmodule BookshelfWeb.ModalLive do
           />
         </svg>
       </div>
-      <div class={["bg-gold w-fit rounded-full px-4 py-2"]}>
+      <div class={["bg-gold min-w-max rounded-full px-4 py-2"]}>
         <p class={pill_text_class()}>
           <%= transform_date_read(@date_read) %>
         </p>
@@ -127,17 +239,20 @@ defmodule BookshelfWeb.ModalLive do
 
   defp status_and_date_read(assigns) do
     ~H"""
-    <div class={["bg-#{parse_status(@status, :color)} w-fit rounded-full px-4 py-2"]}>
-      <p class={pill_text_class()}>
-        <%= parse_status(@status, :text) %>
-      </p>
+    <div class="relative">
+      <div class={["bg-#{parse_status(@status, :color)} min-w-max rounded-full px-4 py-2"]}>
+        <p class={pill_text_class()}>
+          <%= parse_status(@status, :text) %>
+        </p>
+      </div>
     </div>
     """
   end
 
   @spec pill_text_class :: String.t()
   defp pill_text_class,
-    do: "font-sans text-[0.5625rem] font-bold uppercase leading-none tracking-wider"
+    do:
+      "text-dragonhide-100 font-sans text-[0.5625rem] font-bold uppercase leading-none tracking-wider"
 
   @spec transform_date_read(Date.t()) :: String.t()
   defp transform_date_read(date_read) do
