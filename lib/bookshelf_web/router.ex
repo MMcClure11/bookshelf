@@ -32,6 +32,9 @@ defmodule BookshelfWeb.Router do
 
     # Phase 4
     live "/upgrade-table", UpgradeTableLive
+
+    # Phase 5
+    live "/modal", ModalLive
   end
 
   # Other scopes may use custom stacks.

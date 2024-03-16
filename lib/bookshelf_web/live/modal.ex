@@ -1,4 +1,4 @@
-defmodule BookshelfWeb.UpgradeTableLive do
+defmodule BookshelfWeb.ModalLive do
   @moduledoc false
 
   use BookshelfWeb, :live_view
