@@ -22,3 +22,148 @@ author = "Becky Chandler"
 title = "A Psalm to the Wild Built"
 genre = "Science Fiction"
 status = "in_progress"
+
+[[books]]
+author = "John Scalzi"
+title = "The Kaiju Preservation Society"
+genre = "Science Fiction"
+status = "complete"
+date_read = 2024-03-03
+review = """
+So many nerdy and modern references!
+"""
+
+[[books]]
+author = "Jessie Chandler"
+title = "The Pickle in the Middle Murder"
+genre = "Mystery"
+status = "complete"
+date_read = 2023-08-20
+review = """
+Fun quick murder mystery! Queer, takes place in Minneapolis, by a Minnesotan queer author, with a Ren Fest murder! We are planning to go next weekend, and it was very fun to read about it and get pumped.
+"""
+
+[[books]]
+author = "Brenda Lozano"
+title = "Witches"
+genre = "Fiction"
+status = "complete"
+date_read = 2023-05-07
+
+[[books]]
+author = "Silvia Moreno-Garcia"
+title = "The Daughter of Doctor Moreau"
+genre = "Fantasy"
+status = "complete"
+date_read = 2023-02-25
+review = """
+Very well written! Not necessarily the ending I was hoping for, but we can’t always get what we want. The surprise for the daughter I actually guessed very early on in the book. Super sleuth me. I really enjoyed learning about the mayan enslavement on the Yucatan peninsula through debt and their rebellion. It’s not something I ever learned in school. It made for an interesting backdrop to the well known story.
+"""
+
+[[books]]
+author = "Nicola Griffith"
+title = "Spear"
+genre = "Fantasy"
+status = "complete"
+date_read = 2022-09-19
+review = """
+So good! I read the majority in the two nights I was at the Getaway house. It could have been a trilogy or saga but I really enjoyed how much the author packed into it in such a small number of pages. My favorite elements were present, magic, queer, mortals and gods, Celtic mythology, and finding connection. The writing style was a bit strange to me at first but I really fell into the rhythm of it.
+"""
+
+[[books]]
+author = "Isabel Cañas"
+title = "The Hacienda"
+genre = "Fantasy"
+status = "complete"
+date_read = 2022-09-11 
+review = """
+Really good! I cried at the ending, it was that heart wrenching. It had good history, terrifying nights in a possessed house, and a beautiful blend and juxtaposition of Catholicism and witchcraft.
+"""
+
+[[books]]
+author = "Nnedi Okorafor"
+title = "The Book of Phoenix"
+genre = "Science Fiction"
+status = "complete"
+date_read = 2022-08-20 
+review = """
+Beautifully written and captivating.
+"""
+
+[[books]]
+author = "Nnedi Okorafor"
+title = "Remote Control"
+genre = "Science Fiction"
+status = "complete"
+date_read = 2022-08-21 
+
+[[books]]
+author = "Rebecca Roanhorse"
+title = "Black Sun"
+genre = "Fantasy"
+status = "complete"
+date_read = 2022-07-12
+
+[[books]]
+author = "Rebecca Roanhorse"
+title = "Fevered Star"
+genre = "Fantasy"
+status = "want_to_read"
+
+[[books]]
+author = "Rebecca Roanhorse"
+title = "Mirrored Heavens"
+genre = "Fantasy"
+status = "want_to_read"
+
+[[books]]
+author = "Fritz Leiber"
+title = "Swords and Deviltry"
+genre = "Sword and Sorcery"
+status = "want_to_read"
+
+[[books]]
+author = "K. Arsenault Rivera"
+title = "The Tiger's Daughter"
+genre = "High Fantasy"
+status = "complete"
+date_read = 2018-06-12
+review = """
+Such a beautifully epic tale.
+"""
+
+[[books]]
+author = "D.A. Baden"
+title = "No More Fairy Tales: Stories to Save Our Planet"
+genre = "Science Fiction"
+status = "in_progress"
+
+[[books]]
+author = "Ryoko Kui"
+title = "Delicious in Dungeon, Vol. 1"
+genre = "Manga"
+status = "want_to_read"
+
+[[books]]
+author = "Silvia Moreno-Garcia"
+title = "Mexican Gothic"
+genre = "Fiction"
+status = "complete"
+date_read = 2021-11-25
+review = """
+This ode to gothic novels starts out a bit slow, with the rather drab life of a spoiled debutante. But the heroine sheds layers and we see her as a deep, thoughtful, and courageous woman is as she uncovers the mystery of her cousin's haunted mansion. Even though it's set in the 1950s, it successfully challenges expectations for women of today.
+
+“Noemí’s father said she cared too much about her looks and parties to take school seriously, as if a woman could not do two things at once.”
+
+Throughout the novel Noemí somehow manages to both defy and exceed expectations as to what her role is. There's a long buildup with plenty of the gothic romance followed by a roller coaster ride of "wtf" moments to keep you on the edge of your seat all the way up to the last page.
+"""
+
+[[books]]
+author = "N. K. Jemisin"
+title = "The City We Became"
+genre = "Science Fiction"
+status = "complete"
+date_read = 2021-11-26
+review = """
+Being a country person, with minimal experience with large cities, I was skeptical that I was going to enjoy a book about metropolises that come alive. I was utterly blown away and humbled by Jemisin's portrayal of New York City and the people living within it. It has some of the best elements of fantasy with strange magic rooted in science, epic battles with flawed heroes and heroines, and characters that really draw you in. Standout phrase: "racist sexist homophobic dipshit". It's a phenomenal read that if you let it, will force you to question your own biases.
+"""
