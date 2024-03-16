@@ -79,4 +79,14 @@ defmodule Bookshelf.Books do
     |> String.downcase()
     |> String.contains?(String.downcase(search_query))
   end
+
+  @doc """
+  Given a string returns a single `Bookshelf.Books.Book` with a matching `:title`.
+  """
+  @spec get_book_by_title(String.t()) :: Book.t()
+  def get_book_by_title(title) do
+    books = create_book_structs()
+
+    Enum.filter(books, &(&1.title == title)) |> hd()
+  end
 end
