@@ -4,6 +4,7 @@ defmodule BookshelfWeb.ModalLive do
   use BookshelfWeb, :live_view
 
   alias Bookshelf.Books
+  alias Bookshelf.Books.Book
 
   @impl Phoenix.LiveView
   def mount(_, _, socket) do
@@ -171,7 +172,7 @@ defmodule BookshelfWeb.ModalLive do
   defp month_abbrev(11), do: "Nov"
   defp month_abbrev(12), do: "Dec"
 
-  @spec parse_status(atom(), atom()) :: String.t()
+  @spec parse_status(Book.status(), :text | :color) :: String.t()
   defp parse_status(:want_to_read, :text), do: "Want to Read"
   defp parse_status(:in_progress, :text), do: "In Progress"
   defp parse_status(:want_to_read, :color), do: "silver"
