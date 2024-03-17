@@ -20,6 +20,20 @@ module.exports = {
     },
     extend: {
       colors: colors,
+      keyframes: {
+        fadeIn: {
+          '0%': { opacity: '0' },
+          '100%': { opacity: '1' },
+        },
+        fadeOut: {
+          '0%': { opacity: '1' },
+          '100%': { opacity: '0' },
+        },
+      },
+      animation: {
+        'fade-in': 'fadeIn 250ms ease-in',
+        'fade-out': 'fadeOut 250ms ease-out',
+      }
     },
   },
   plugins: [
