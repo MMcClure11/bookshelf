@@ -12,19 +12,24 @@ defmodule BookshelfWeb.ModalLive do
       socket
       |> assign(:details, nil)
       |> assign(:books, Books.create_book_structs())
+      |> assign(:query, nil)
 
     {:ok, socket}
   end
 
   @impl Phoenix.LiveView
   def handle_event("change", %{"search" => %{"query" => query}}, socket) do
-    {:noreply, assign(socket, :books, Books.filter_books(query))}
+    socket =
+      socket
+      |> assign(:books, Books.filter_books(query))
+      |> assign(:query, query)
+
+    {:noreply, socket}
   end
 
   @impl Phoenix.LiveView
   def handle_event("show_details", %{"title" => title}, socket) do
-    book = Books.get_book_by_title(title)
-    {:noreply, assign(socket, :details, book)}
+    {:noreply, assign(socket, :details, Books.get_book_by_title(title))}
   end
 
   @impl Phoenix.LiveView
@@ -61,6 +66,7 @@ defmodule BookshelfWeb.ModalLive do
         <input
           id="search-input"
           name="search[query]"
+          value={@query}
           type="text"
           class="bg-dragonhide-200 placeholder:text-dragonhide-400 text-dragonhide-600 h-12 w-80 rounded-sm indent-7 text-base leading-none tracking-normal"
           placeholder="Type to filter…"
