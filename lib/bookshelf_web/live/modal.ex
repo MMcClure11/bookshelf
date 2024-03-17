@@ -106,7 +106,11 @@ defmodule BookshelfWeb.ModalLive do
     </table>
 
     <div :if={@details} class="relative z-10">
-      <div id="modal-overlay" class="animate-fade-in fixed inset-0 bg-black/[.66]" aria-hidden="true" />
+      <div
+        id="modal-overlay"
+        class="motion-safe:animate-fade-in fixed inset-0 bg-black/[.66]"
+        aria-hidden="true"
+      />
       <div
         class="fixed inset-0 overflow-y-auto"
         aria-labelledby={"#{@details.title}-title"}
@@ -120,7 +124,7 @@ defmodule BookshelfWeb.ModalLive do
             phx-click-away={JS.push("hide_details") |> close_modal()}
             phx-window-keyup={JS.push("esc_details") |> close_modal()}
             phx-key="escape"
-            class="bg-rust-900 animate-fade-in relative w-7/12 rounded-sm p-20 shadow-2xl"
+            class="bg-rust-900 motion-safe:animate-fade-in relative w-7/12 rounded-sm p-20 shadow-2xl"
           >
             <button
               phx-click={JS.push("hide_details") |> close_modal()}
@@ -168,11 +172,11 @@ defmodule BookshelfWeb.ModalLive do
   @spec close_modal(map()) :: map()
   defp close_modal(js) do
     js
-    |> JS.remove_class("animate-fade-in", to: "#modal-overlay")
-    |> JS.remove_class("animate-fade-in", to: "#modal-container")
+    |> JS.remove_class("motion-safe:animate-fade-in", to: "#modal-overlay")
+    |> JS.remove_class("motion-safe:animate-fade-in", to: "#modal-container")
     |> JS.remove_class("overflow-y-hidden", to: "#body")
-    |> JS.add_class("animate-fade-out", to: "#modal-overlay")
-    |> JS.add_class("animate-fade-out", to: "#modal-container")
+    |> JS.add_class("motion-safe:animate-fade-out", to: "#modal-overlay")
+    |> JS.add_class("motion-safe:animate-fade-out", to: "#modal-container")
   end
 
   @spec open_modal(map()) :: map()
