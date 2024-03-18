@@ -5,12 +5,15 @@ defmodule BookshelfWeb.ModalLive do
 
   alias Bookshelf.Books
   alias Bookshelf.Books.Book
+  alias Bookshelf.Books.Details
+
+  @empty_details %Details{}
 
   @impl Phoenix.LiveView
   def mount(_, _, socket) do
     socket =
       socket
-      |> assign(:details, nil)
+      |> assign(:details, @empty_details)
       |> assign(:books, Books.create_book_structs())
       |> assign(:query, nil)
 
@@ -29,29 +32,24 @@ defmodule BookshelfWeb.ModalLive do
 
   @impl Phoenix.LiveView
   def handle_event("show_details", %{"title" => title}, socket) do
-    {:noreply, assign(socket, :details, Books.get_book_by_title(title))}
+    {:noreply, assign(socket, :details, Books.get_book_details(title))}
   end
 
   @impl Phoenix.LiveView
   def handle_event("hide_details", _value, socket) do
-    schedule_destroy_modal()
+    socket = assign(socket, :details, @empty_details)
     {:noreply, socket}
   end
 
   @impl Phoenix.LiveView
   def handle_event("esc_details", %{"key" => "Escape"}, socket) do
-    schedule_destroy_modal()
+    socket = assign(socket, :details, @empty_details)
     {:noreply, socket}
   end
 
   @impl Phoenix.LiveView
   def handle_event("esc_details", _value, socket) do
     {:noreply, socket}
-  end
-
-  @impl Phoenix.LiveView
-  def handle_info(:destroy_modal, socket) do
-    {:noreply, assign(socket, :details, nil)}
   end
 
   @impl Phoenix.LiveView
@@ -95,7 +93,9 @@ defmodule BookshelfWeb.ModalLive do
             <.cell_data><%= book.genre %></.cell_data>
             <.cell_data class="focus-within:border-ooze-300 font-sans text-xs leading-snug focus-within:border-2">
               <button
-                phx-click={JS.push("show_details", value: %{title: book.title}) |> open_modal()}
+                phx-click={
+                  JS.push("show_details", value: %{title: book.title}) |> show_modal("modal-content")
+                }
                 tabindex="0"
                 class="duration-250 hocus:scale-105 w-full transform transition focus:outline-none"
                 aria-label={"#{book.title} details"}
@@ -111,84 +111,38 @@ defmodule BookshelfWeb.ModalLive do
       </tbody>
     </table>
 
-    <div :if={@details} class="relative z-10">
-      <div
-        id="modal-overlay"
-        class="motion-safe:animate-fade-in fixed inset-0 bg-black/[.66]"
-        aria-hidden="true"
-      />
-      <div
-        class="fixed inset-0 overflow-y-auto"
-        aria-labelledby={"#{@details.title}-title"}
-        role="dialog"
-        aria-modal="true"
-        tabindex="0"
-      >
-        <div class="flex min-h-full items-center justify-center">
-          <.focus_wrap
-            id="modal-container"
-            phx-click-away={JS.push("hide_details") |> close_modal()}
-            phx-window-keyup={JS.push("esc_details") |> close_modal()}
-            phx-key="escape"
-            class="bg-rust-900 motion-safe:animate-fade-in relative w-7/12 rounded-sm p-20 shadow-2xl"
-          >
-            <button
-              phx-click={JS.push("hide_details") |> close_modal()}
-              type="button"
-              class="focus:border-dragonhide-300 absolute left-7 top-7 text-white focus:border focus:outline-none"
-              aria-label={gettext("close")}
-            >
-              <.icon name="hero-x-mark" class="h-6 w-6" />
-            </button>
-            <div id={"#{@details.title}-content"}>
-              <div class="flex gap-12">
-                <img
-                  class="h-80"
-                  src={
-                    if is_nil(@details.cover_art),
-                      do:
-                        "https://static.vecteezy.com/system/resources/previews/027/205/141/original/hand-draw-open-book-lying-on-high-stack-of-books-isolated-free-vector.jpg",
-                      else: @details.cover_art
-                  }
-                  alt={@details.title}
-                />
-                <div class="flex w-full flex-col gap-6">
-                  <div class="flex justify-between">
-                    <div>
-                      <h1 class="text-dragonhide-100 font-serif text-4xl leading-tight">
-                        <%= @details.title %>
-                      </h1>
-                      <h2 class="text-dragonhide-300 text-base uppercase leading-tight tracking-wider">
-                        By <%= @details.author %>
-                      </h2>
-                    </div>
-                    <.status_and_date_read status={@details.status} date_read={@details.date_read} />
-                  </div>
-                  <.full_review value={@details.review} />
-                </div>
+    <.modal id="modal-content" on_cancel={JS.push("hide_details")}>
+      <div id={"#{@details.title}-content"}>
+        <div class="flex gap-12">
+          <img class="h-80" src={image_source(@details)} alt={@details.title} />
+          <div class="flex w-full flex-col gap-6">
+            <div class="flex justify-between">
+              <div>
+                <h1 class="text-dragonhide-100 font-serif text-4xl leading-tight">
+                  <%= @details.title %>
+                </h1>
+                <h2 class="text-dragonhide-300 text-base uppercase leading-tight tracking-wider">
+                  By <%= @details.author %>
+                </h2>
               </div>
+              <.status_and_date_read status={@details.status} date_read={@details.date_read} />
             </div>
-          </.focus_wrap>
+            <.full_review value={@details.review} />
+          </div>
         </div>
       </div>
-    </div>
+    </.modal>
     """
   end
 
-  @spec close_modal(map()) :: map()
-  defp close_modal(js) do
-    js
-    |> JS.remove_class("motion-safe:animate-fade-in", to: "#modal-overlay")
-    |> JS.remove_class("motion-safe:animate-fade-in", to: "#modal-container")
-    |> JS.remove_class("overflow-y-hidden", to: "#body")
-    |> JS.add_class("motion-safe:animate-fade-out", to: "#modal-overlay")
-    |> JS.add_class("motion-safe:animate-fade-out", to: "#modal-container")
-  end
+  @spec image_source(map()) :: String.t()
+  defp image_source(%{title: nil}), do: ""
 
-  @spec open_modal(map()) :: map()
-  defp open_modal(js) do
-    JS.add_class(js, "overflow-y-hidden", to: "#body")
-  end
+  defp image_source(%{cover_art: nil}),
+    do:
+      "https://static.vecteezy.com/system/resources/previews/027/205/141/original/hand-draw-open-book-lying-on-high-stack-of-books-isolated-free-vector.jpg"
+
+  defp image_source(%{cover_art: cover_art}), do: cover_art
 
   attr :text, :string, required: true
 
@@ -306,9 +260,5 @@ defmodule BookshelfWeb.ModalLive do
   defp parse_status(:in_progress, :text), do: "In Progress"
   defp parse_status(:want_to_read, :color), do: "silver"
   defp parse_status(:in_progress, :color), do: "copper"
-
-  @spec schedule_destroy_modal() :: reference()
-  defp schedule_destroy_modal do
-    Process.send_after(self(), :destroy_modal, 250)
-  end
+  defp parse_status(_, _), do: nil
 end

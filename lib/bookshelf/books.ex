@@ -4,6 +4,7 @@ defmodule Bookshelf.Books do
   """
 
   alias Bookshelf.Books.Book
+  alias Bookshelf.Books.Details
 
   @doc """
   Decodes a list of books from [TOML](https://toml.io/) to a list of maps.
@@ -81,12 +82,19 @@ defmodule Bookshelf.Books do
   end
 
   @doc """
-  Given a string returns a single `Bookshelf.Books.Book` with a matching `:title`.
+  Given a string returns a single `Bookshelf.Books.Details` with a matching `:title`.
   """
-  @spec get_book_by_title(String.t()) :: Book.t()
-  def get_book_by_title(title) do
-    books = create_book_structs()
+  @spec get_book_details(String.t()) :: Details.t()
+  def get_book_details(title) do
+    book = create_book_structs() |> Enum.filter(&(&1.title == title)) |> hd()
 
-    Enum.filter(books, &(&1.title == title)) |> hd()
+    struct(Details, %{
+      author: book.author,
+      cover_art: book.cover_art,
+      date_read: book.date_read,
+      review: book.review,
+      status: book.status,
+      title: book.title
+    })
   end
 end
