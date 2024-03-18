@@ -11,7 +11,7 @@
     <script defer phx-track-static type="text/javascript" src={~p"/assets/app.js"}>
     </script>
   </head>
-  <body class={["antialiased", background_color(assigns.conn)]}>
+  <body id="body" class={["antialiased", background_color(assigns.conn)]}>
     <%= @inner_content %>
   </body>
 </html>

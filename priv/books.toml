@@ -16,6 +16,7 @@ review = """
 “We understand how dangerous a mask can be. We all become what we pretend to be.”
 
 This epic tale took me away to a new universe and world where I got to experience some of my favorite aspects of high fantasy, magic, dragons, and wild adventures."""
+cover_art = "https://m.media-amazon.com/images/I/91UzPegYyjL._AC_UF1000,1000_QL80_.jpg"
 
 [[books]]
 author = "Becky Chandler"
@@ -102,19 +103,27 @@ author = "Rebecca Roanhorse"
 title = "Black Sun"
 genre = "Fantasy"
 status = "complete"
-date_read = 2022-07-12
+date_read = 2021-08-26
+review = """
+One of my favorites! The epic storytelling with strong influences from Ancient American cultures was a fresh breath of air drawing on new ideas not typically explored by Eurocentric-based fantasies.
+
+Add in the casual use of non-traditional pronouns and gender identities, an unlikely friendship that forms, magic, and prophecies, this is well worth the time! Can't wait for the series to continue!
+"""
+cover_art = "https://m.media-amazon.com/images/I/71ZMYPkoNLL._AC_UF1000,1000_QL80_.jpg"
 
 [[books]]
 author = "Rebecca Roanhorse"
 title = "Fevered Star"
 genre = "Fantasy"
 status = "want_to_read"
+cover_art = "https://m.media-amazon.com/images/I/71TY4JsNupL._AC_UF1000,1000_QL80_.jpg"
 
 [[books]]
 author = "Rebecca Roanhorse"
 title = "Mirrored Heavens"
 genre = "Fantasy"
 status = "want_to_read"
+cover_art = "https://m.media-amazon.com/images/I/51C2XAOvz3L.jpg"
 
 [[books]]
 author = "Fritz Leiber"
