@@ -139,8 +139,7 @@ defmodule BookshelfWeb.ModalLive do
   defp image_source(%{title: nil}), do: ""
 
   defp image_source(%{cover_art: nil}),
-    do:
-      "https://static.vecteezy.com/system/resources/previews/027/205/141/original/hand-draw-open-book-lying-on-high-stack-of-books-isolated-free-vector.jpg"
+    do: "https://m.media-amazon.com/images/I/81MmomTwghL._AC_UF1000,1000_QL80_.jpg"
 
   defp image_source(%{cover_art: cover_art}), do: cover_art
 
