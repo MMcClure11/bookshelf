@@ -113,7 +113,7 @@ defmodule BookshelfWeb.ModalLive do
 
     <.modal id="modal-content" on_cancel={JS.push("hide_details")}>
       <div id={"#{@details.title}-content"}>
-        <div class="flex gap-12">
+        <div class="min-h-80 flex gap-12">
           <img class="h-80" src={image_source(@details)} alt={@details.title} />
           <div class="flex w-full flex-col gap-6">
             <div class="flex justify-between">
