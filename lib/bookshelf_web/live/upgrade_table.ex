@@ -8,7 +8,7 @@ defmodule BookshelfWeb.UpgradeTableLive do
 
   @impl Phoenix.LiveView
   def mount(_, _, socket) do
-    {:ok, assign(socket, :books, Books.create_book_structs())}
+    {:ok, assign(socket, :books, Books.list_books())}
   end
 
   @impl Phoenix.LiveView

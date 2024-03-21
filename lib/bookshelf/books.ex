@@ -5,12 +5,13 @@ defmodule Bookshelf.Books do
 
   alias Bookshelf.Books.Book
   alias Bookshelf.Books.Details
+  alias Bookshelf.Repo
 
   @doc """
   Decodes a list of books from [TOML](https://toml.io/) to a list of maps.
   """
-  @spec list_books() :: keyword()
-  def list_books() do
+  @spec decode_books() :: keyword()
+  def decode_books() do
     input = File.read!(data_path())
     %{"books" => books} = Toml.decode!(input)
     books
@@ -29,7 +30,7 @@ defmodule Bookshelf.Books do
   """
   @spec create_book_structs() :: [Book.t()]
   def create_book_structs() do
-    books = list_books()
+    books = decode_books()
 
     Enum.map(books, fn book ->
       book
@@ -58,12 +59,20 @@ defmodule Bookshelf.Books do
   defp parse_status("complete"), do: :complete
 
   @doc """
+  Returns a list of `Bookshelf.Books.Book`s from the in-memory `Bookshelf.Repo`.
+  """
+  @spec list_books() :: [Book.t()]
+  def list_books() do
+    Repo.list_books()
+  end
+
+  @doc """
   Returns a list of `Bookshelf.Books.Book`s where the given string is found in
   the `:title` or `:author` field.
   """
   @spec filter_books(String.t()) :: [Book.t()]
   def filter_books(search_query) do
-    books = create_book_structs()
+    books = list_books()
 
     Enum.filter(
       books,
@@ -86,15 +95,15 @@ defmodule Bookshelf.Books do
   """
   @spec get_book_details(String.t()) :: Details.t()
   def get_book_details(title) do
-    book = create_book_structs() |> Enum.filter(&(&1.title == title)) |> hd()
+    book = list_books() |> Enum.filter(&(&1.title == title)) |> hd()
 
-    struct(Details, %{
+    %Details{
       author: book.author,
       cover_art: book.cover_art,
       date_read: book.date_read,
       review: book.review,
       status: book.status,
       title: book.title
-    })
+    }
   end
 end

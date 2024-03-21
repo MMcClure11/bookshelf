@@ -14,7 +14,7 @@ defmodule BookshelfWeb.ModalLive do
     socket =
       socket
       |> assign(:details, @empty_details)
-      |> assign(:books, Books.create_book_structs())
+      |> assign(:books, Books.list_books())
       |> assign(:query, nil)
 
     {:ok, socket}
