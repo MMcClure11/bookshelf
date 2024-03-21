@@ -66,10 +66,10 @@ defmodule BookshelfWeb.ModalLive do
           name="search[query]"
           value={@query}
           type="text"
-          class="bg-dragonhide-200 placeholder:text-dragonhide-400 text-dragonhide-600 h-12 w-80 rounded-sm indent-7 text-base leading-none tracking-normal"
+          class="bg-dragonhide-200 placeholder:text-dragonhide-400 text-dragonhide-600 focus:ring-dragonhide-300 h-12 w-80 rounded-sm border-none indent-10 text-base leading-none tracking-normal"
           placeholder="Type to filter…"
         />
-        <div class="text-dragonhide-500 pointer-events-none absolute inset-y-0 flex items-center pl-3">
+        <div class="bg-dragonhide-300 text-dragonhide-500 pointer-events-none absolute inset-y-0 flex w-11 items-center justify-center rounded-bl-sm rounded-tl-sm">
           <.icon name="hero-magnifying-glass" class="h-5 w-5" />
         </div>
       </div>
