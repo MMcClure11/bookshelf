@@ -40,19 +40,37 @@ defmodule Bookshelf.Books do
   end
 
   @doc """
-  Given a string returns a single `Bookshelf.Books.Details` with a matching `:title`.
-  """
-  @spec get_book_details(String.t()) :: Details.t()
-  def get_book_details(title) do
-    book = list_books() |> Enum.filter(&(&1.title == title)) |> hd()
+  Given a string returns a an :ok tuple with single `Bookshelf.Books.Details`
+  with a matching `:title`. Returns an error tuple if no matching
+  `Bookshelf.Books.Book` is found.
 
-    %Details{
-      author: book.author,
-      cover_art: book.cover_art,
-      date_read: book.date_read,
-      review: book.review,
-      status: book.status,
-      title: book.title
-    }
+  ## Examples
+
+       iex> Bookshelf.Books.get_book_details("Fevered Star")
+       {:ok, %Details{}}
+
+       iex> Bookshelf.Books.get_book_details("Don't Read Me")
+       {:error, :not_found}
+
+  """
+  @spec get_book_details(String.t()) :: {:ok, Details.t()} | {:error, :not_found}
+  def get_book_details(title) do
+    book = list_books() |> Enum.find(&(&1.title == title))
+
+    case book do
+      nil ->
+        {:error, :not_found}
+
+      _ ->
+        {:ok,
+         %Details{
+           author: book.author,
+           cover_art: book.cover_art,
+           date_read: book.date_read,
+           review: book.review,
+           status: book.status,
+           title: book.title
+         }}
+    end
   end
 end

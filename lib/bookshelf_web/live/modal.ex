@@ -32,7 +32,19 @@ defmodule BookshelfWeb.ModalLive do
 
   @impl Phoenix.LiveView
   def handle_event("show_details", %{"title" => title}, socket) do
-    {:noreply, assign(socket, :details, Books.get_book_details(title))}
+    case Books.get_book_details(title) do
+      {:error, :not_found} ->
+        {:noreply,
+         socket
+         |> put_flash(
+           :error,
+           gettext("A book by the title %{title} was unable to be discovered.", title: title)
+         )
+         |> redirect(to: ~p(/modal))}
+
+      {:ok, details} ->
+        {:noreply, assign(socket, :details, details)}
+    end
   end
 
   @impl Phoenix.LiveView
