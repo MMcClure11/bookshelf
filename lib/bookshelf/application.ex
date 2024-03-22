@@ -8,6 +8,7 @@ defmodule Bookshelf.Application do
   @impl true
   def start(_type, _args) do
     children = [
+      Bookshelf.Repo,
       BookshelfWeb.Telemetry,
       {DNSCluster, query: Application.get_env(:bookshelf, :dns_cluster_query) || :ignore},
       {Phoenix.PubSub, name: Bookshelf.PubSub},

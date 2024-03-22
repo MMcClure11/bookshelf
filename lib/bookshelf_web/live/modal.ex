@@ -14,7 +14,7 @@ defmodule BookshelfWeb.ModalLive do
     socket =
       socket
       |> assign(:details, @empty_details)
-      |> assign(:books, Books.create_book_structs())
+      |> assign(:books, Books.list_books())
       |> assign(:query, nil)
 
     {:ok, socket}
@@ -32,7 +32,19 @@ defmodule BookshelfWeb.ModalLive do
 
   @impl Phoenix.LiveView
   def handle_event("show_details", %{"title" => title}, socket) do
-    {:noreply, assign(socket, :details, Books.get_book_details(title))}
+    case Books.get_book_details(title) do
+      {:error, :not_found} ->
+        {:noreply,
+         socket
+         |> put_flash(
+           :error,
+           gettext("A book by the title %{title} was unable to be discovered.", title: title)
+         )
+         |> redirect(to: ~p(/modal))}
+
+      {:ok, details} ->
+        {:noreply, assign(socket, :details, details)}
+    end
   end
 
   @impl Phoenix.LiveView
@@ -66,10 +78,10 @@ defmodule BookshelfWeb.ModalLive do
           name="search[query]"
           value={@query}
           type="text"
-          class="bg-dragonhide-200 placeholder:text-dragonhide-400 text-dragonhide-600 h-12 w-80 rounded-sm indent-7 text-base leading-none tracking-normal"
+          class="bg-dragonhide-200 placeholder:text-dragonhide-400 text-dragonhide-600 focus:ring-dragonhide-300 h-12 w-80 rounded-sm border-none indent-10 text-base leading-none tracking-normal"
           placeholder="Type to filter…"
         />
-        <div class="text-dragonhide-500 pointer-events-none absolute inset-y-0 flex items-center pl-3">
+        <div class="bg-dragonhide-300 text-dragonhide-500 pointer-events-none absolute inset-y-0 flex w-11 items-center justify-center rounded-bl-sm rounded-tl-sm">
           <.icon name="hero-magnifying-glass" class="h-5 w-5" />
         </div>
       </div>
@@ -113,7 +125,7 @@ defmodule BookshelfWeb.ModalLive do
 
     <.modal id="modal-content" on_cancel={JS.push("hide_details")}>
       <div id={"#{@details.title}-content"}>
-        <div class="flex gap-12">
+        <div class="min-h-80 flex gap-12">
           <img class="h-80" src={image_source(@details)} alt={@details.title} />
           <div class="flex w-full flex-col gap-6">
             <div class="flex justify-between">
@@ -139,8 +151,7 @@ defmodule BookshelfWeb.ModalLive do
   defp image_source(%{title: nil}), do: ""
 
   defp image_source(%{cover_art: nil}),
-    do:
-      "https://static.vecteezy.com/system/resources/previews/027/205/141/original/hand-draw-open-book-lying-on-high-stack-of-books-isolated-free-vector.jpg"
+    do: "https://m.media-amazon.com/images/I/81MmomTwghL._AC_UF1000,1000_QL80_.jpg"
 
   defp image_source(%{cover_art: cover_art}), do: cover_art
 
