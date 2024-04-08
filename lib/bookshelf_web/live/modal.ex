@@ -230,7 +230,7 @@ defmodule BookshelfWeb.ModalLive do
   defp status_and_date_read(assigns) do
     ~H"""
     <div class="relative">
-      <div class={["bg-#{parse_status(@status, :color)} min-w-max rounded-full px-4 py-2"]}>
+      <div class={["w-fit rounded-full px-4 py-2", parse_status(@status, :color)]}>
         <p class={pill_text_class()}>
           <%= parse_status(@status, :text) %>
         </p>
@@ -267,7 +267,7 @@ defmodule BookshelfWeb.ModalLive do
   @spec parse_status(Book.status(), :text | :color) :: String.t()
   defp parse_status(:want_to_read, :text), do: "Want to Read"
   defp parse_status(:in_progress, :text), do: "In Progress"
-  defp parse_status(:want_to_read, :color), do: "silver"
-  defp parse_status(:in_progress, :color), do: "copper"
+  defp parse_status(:want_to_read, :color), do: "bg-silver"
+  defp parse_status(:in_progress, :color), do: "bg-copper"
   defp parse_status(_, _), do: nil
 end
