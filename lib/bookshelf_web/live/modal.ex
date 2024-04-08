@@ -241,8 +241,7 @@ defmodule BookshelfWeb.ModalLive do
 
   @spec pill_text_class :: String.t()
   defp pill_text_class,
-    do:
-      "text-dragonhide-100 font-sans text-[0.5625rem] font-bold uppercase leading-none tracking-wider"
+    do: "font-sans text-[0.5625rem] font-bold uppercase leading-none tracking-wider"
 
   @spec transform_date_read(Date.t()) :: String.t()
   defp transform_date_read(date_read) do
