@@ -54,17 +54,6 @@ defmodule BookshelfWeb.ModalLive do
   end
 
   @impl Phoenix.LiveView
-  def handle_event("esc_details", %{"key" => "Escape"}, socket) do
-    socket = assign(socket, :details, @empty_details)
-    {:noreply, socket}
-  end
-
-  @impl Phoenix.LiveView
-  def handle_event("esc_details", _value, socket) do
-    {:noreply, socket}
-  end
-
-  @impl Phoenix.LiveView
   def render(assigns) do
     ~H"""
     <h1 class="text-dragonhide-100 pb-6 font-['Kalnia'] text-[2rem] font-semibold leading-none">
