@@ -132,7 +132,11 @@ defmodule BookshelfWeb.ModalLive do
                   By <%= @details.author %>
                 </h2>
               </div>
-              <.status_and_date_read status={@details.status} date_read={@details.date_read} />
+              <.status_and_date_read
+                status={@details.status}
+                date_read={@details.date_read}
+                for_modal?={true}
+              />
             </div>
             <.full_review value={@details.review} />
           </div>
@@ -204,6 +208,7 @@ defmodule BookshelfWeb.ModalLive do
 
   attr :date_read, :any, required: true
   attr :status, :atom, required: true
+  attr :for_modal?, :boolean, default: false
 
   defp status_and_date_read(%{status: :complete} = assigns) do
     ~H"""
@@ -218,7 +223,7 @@ defmodule BookshelfWeb.ModalLive do
           />
         </svg>
       </div>
-      <div class="bg-gold w-fit rounded-full px-4 py-2">
+      <div class={["bg-gold rounded-full px-4 py-2", if(@for_modal?, do: "min-w-max", else: "w-fit")]}>
         <p class={pill_text_class()}>
           <%= transform_date_read(@date_read) %>
         </p>
@@ -230,7 +235,11 @@ defmodule BookshelfWeb.ModalLive do
   defp status_and_date_read(assigns) do
     ~H"""
     <div class="relative">
-      <div class={["w-fit rounded-full px-4 py-2", parse_status(@status, :color)]}>
+      <div class={[
+        "bg-gold rounded-full px-4 py-2",
+        if(@for_modal?, do: "min-w-max", else: "w-fit"),
+        parse_status(@status, :color)
+      ]}>
         <p class={pill_text_class()}>
           <%= parse_status(@status, :text) %>
         </p>
