@@ -22,7 +22,12 @@ defmodule BookshelfWeb.LiveFilterLive do
       The Bookshelf
     </h1>
 
-    <form action="" novalidate="" role="search" phx-change="change" class="mb-16">
+    <form
+      id="search-filter "
+      phx-change="change"
+      class="mb-16"
+      onkeydown="return event.key != 'Enter';"
+    >
       <div class="relative">
         <input
           id="search-input"
