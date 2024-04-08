@@ -46,7 +46,7 @@ defmodule BookshelfWeb.CustomStylesHTML do
 
     <table class="w-full table-fixed text-left">
       <thead>
-        <tr class="text-dragonhide-100 bg-dragonhide-800 text-xs font-bold uppercase leading-none tracking-wider">
+        <tr class="text-dragonhide-100 bg-dragonhide-800 text-xs font-bold uppercase leading-none tracking-wider [&>th]:p-4">
           <.column_header text="Title" />
           <.column_header text="Author" />
           <.column_header text="Genre" />
@@ -55,17 +55,18 @@ defmodule BookshelfWeb.CustomStylesHTML do
         </tr>
       </thead>
       <tbody>
-        <%= for book <- @books do %>
-          <tr class="text-dragonhide-100 bg-dragonhide-400 odd:bg-dragonhide-500 font-serif text-sm leading-normal">
-            <.cell_data><%= book.title %></.cell_data>
-            <.cell_data><%= book.author %></.cell_data>
-            <.cell_data><%= book.genre %></.cell_data>
-            <.cell_data class="font-sans text-xs leading-snug">
-              <.review value={book.review} />
-            </.cell_data>
-            <.cell_data><%= parse_status_and_date_read(book) %></.cell_data>
-          </tr>
-        <% end %>
+        <tr
+          :for={book <- @books}
+          class="text-dragonhide-100 bg-dragonhide-400 odd:bg-dragonhide-500 font-serif text-sm leading-normal [&>td]:p-4"
+        >
+          <.cell_data><%= book.title %></.cell_data>
+          <.cell_data><%= book.author %></.cell_data>
+          <.cell_data><%= book.genre %></.cell_data>
+          <.cell_data class="font-sans text-xs leading-snug">
+            <.review value={book.review} />
+          </.cell_data>
+          <.cell_data><%= parse_status_and_date_read(book) %></.cell_data>
+        </tr>
       </tbody>
     </table>
     """
@@ -75,7 +76,7 @@ defmodule BookshelfWeb.CustomStylesHTML do
 
   defp column_header(assigns) do
     ~H"""
-    <th class="p-4"><%= @text %></th>
+    <th><%= @text %></th>
     """
   end
 
@@ -84,7 +85,7 @@ defmodule BookshelfWeb.CustomStylesHTML do
 
   defp cell_data(assigns) do
     ~H"""
-    <td class={["p-4", @class]}>
+    <td class={@class}>
       <%= render_slot(@inner_block) %>
     </td>
     """
