@@ -204,9 +204,12 @@ defmodule BookshelfWeb.ModalLive do
 
   defp full_review(assigns) do
     ~H"""
-    <%= for item <- @value do %>
-      <p class="text-dragonhide-100 mb-2 font-serif text-base leading-snug last:mb-0"><%= item %></p>
-    <% end %>
+    <p
+      :for={item <- @value}
+      class="text-dragonhide-100 mb-2 font-serif text-base leading-snug last:mb-0"
+    >
+      <%= item %>
+    </p>
     """
   end
 

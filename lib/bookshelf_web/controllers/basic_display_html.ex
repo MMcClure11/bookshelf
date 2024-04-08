@@ -32,16 +32,14 @@ defmodule BookshelfWeb.BasicDisplayHTML do
         </tr>
       </thead>
       <tbody>
-        <%= for book <- @books do %>
-          <tr class="text-center">
-            <.cell_data><%= book.title %></.cell_data>
-            <.cell_data><%= book.author %></.cell_data>
-            <.cell_data><%= book.genre %></.cell_data>
-            <.cell_data><%= parse_status(book.status) %></.cell_data>
-            <.cell_data><.review value={book.review} /></.cell_data>
-            <.cell_data><%= book.date_read %></.cell_data>
-          </tr>
-        <% end %>
+        <tr :for={book <- @books} class="text-center">
+          <.cell_data><%= book.title %></.cell_data>
+          <.cell_data><%= book.author %></.cell_data>
+          <.cell_data><%= book.genre %></.cell_data>
+          <.cell_data><%= parse_status(book.status) %></.cell_data>
+          <.cell_data><.review value={book.review} /></.cell_data>
+          <.cell_data><%= book.date_read %></.cell_data>
+        </tr>
       </tbody>
     </table>
     """
@@ -55,7 +53,7 @@ defmodule BookshelfWeb.BasicDisplayHTML do
     """
   end
 
-  slot :inner_block
+  slot :inner_block, required: true
 
   defp cell_data(assigns) do
     ~H"""
@@ -71,9 +69,7 @@ defmodule BookshelfWeb.BasicDisplayHTML do
 
   defp review(assigns) do
     ~H"""
-    <%= for item <- @value do %>
-      <p class="mb-2 text-left last:mb-0"><%= item %></p>
-    <% end %>
+    <p :for={item <- @value} class="mb-2 text-left last:mb-0"><%= item %></p>
     """
   end
 

@@ -101,9 +101,7 @@ defmodule BookshelfWeb.CustomStylesHTML do
 
   defp review(assigns) do
     ~H"""
-    <%= for item <- @value do %>
-      <p class="mb-2 last:mb-0"><%= item %></p>
-    <% end %>
+    <p :for={item <- @value} class="mb-2 last:mb-0"><%= item %></p>
     """
   end
 
