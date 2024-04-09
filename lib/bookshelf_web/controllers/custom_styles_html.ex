@@ -19,20 +19,7 @@ defmodule BookshelfWeb.CustomStylesHTML do
               class="bg-dragonhide-200 placeholder:text-dragonhide-400 text-dragonhide-600 h-12 w-80 rounded-sm indent-7 text-base leading-none tracking-normal"
             />
             <div class="pointer-events-none absolute inset-y-0 flex items-center pl-3">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke-width="1.5"
-                stroke="#594544"
-                class="h-5 w-5"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"
-                />
-              </svg>
+              <.icon name="hero-magnifying-glass" class="h-5 w-5 bg-dragonhide-500" />
             </div>
           </div>
           <input
@@ -46,7 +33,7 @@ defmodule BookshelfWeb.CustomStylesHTML do
 
     <table class="w-full table-fixed text-left">
       <thead>
-        <tr class="text-dragonhide-100 bg-dragonhide-800 text-xs font-bold uppercase leading-none tracking-wider">
+        <tr class="text-dragonhide-100 bg-dragonhide-800 text-xs font-bold uppercase leading-none tracking-wider [&>th]:p-4">
           <.column_header text="Title" />
           <.column_header text="Author" />
           <.column_header text="Genre" />
@@ -55,17 +42,18 @@ defmodule BookshelfWeb.CustomStylesHTML do
         </tr>
       </thead>
       <tbody>
-        <%= for book <- @books do %>
-          <tr class="text-dragonhide-100 bg-dragonhide-400 odd:bg-dragonhide-500 font-serif text-sm leading-normal">
-            <.cell_data><%= book.title %></.cell_data>
-            <.cell_data><%= book.author %></.cell_data>
-            <.cell_data><%= book.genre %></.cell_data>
-            <.cell_data class="font-sans text-xs leading-snug">
-              <.review value={book.review} />
-            </.cell_data>
-            <.cell_data><%= parse_status_and_date_read(book) %></.cell_data>
-          </tr>
-        <% end %>
+        <tr
+          :for={book <- @books}
+          class="text-dragonhide-100 bg-dragonhide-400 odd:bg-dragonhide-500 font-serif text-sm leading-normal [&>td]:p-4"
+        >
+          <.cell_data><%= book.title %></.cell_data>
+          <.cell_data><%= book.author %></.cell_data>
+          <.cell_data><%= book.genre %></.cell_data>
+          <.cell_data class="font-sans text-xs leading-snug">
+            <.review value={book.review} />
+          </.cell_data>
+          <.cell_data><%= parse_status_and_date_read(book) %></.cell_data>
+        </tr>
       </tbody>
     </table>
     """
@@ -75,7 +63,7 @@ defmodule BookshelfWeb.CustomStylesHTML do
 
   defp column_header(assigns) do
     ~H"""
-    <th class="p-4"><%= @text %></th>
+    <th><%= @text %></th>
     """
   end
 
@@ -84,7 +72,7 @@ defmodule BookshelfWeb.CustomStylesHTML do
 
   defp cell_data(assigns) do
     ~H"""
-    <td class={["p-4", @class]}>
+    <td class={@class}>
       <%= render_slot(@inner_block) %>
     </td>
     """
@@ -100,9 +88,7 @@ defmodule BookshelfWeb.CustomStylesHTML do
 
   defp review(assigns) do
     ~H"""
-    <%= for item <- @value do %>
-      <p class="mb-2 last:mb-0"><%= item %></p>
-    <% end %>
+    <p :for={item <- @value} class="mb-2 last:mb-0"><%= item %></p>
     """
   end
 

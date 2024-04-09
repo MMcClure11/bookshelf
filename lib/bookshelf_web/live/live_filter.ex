@@ -22,7 +22,12 @@ defmodule BookshelfWeb.LiveFilterLive do
       The Bookshelf
     </h1>
 
-    <form action="" novalidate="" role="search" phx-change="change" class="mb-16">
+    <form
+      id="search-filter "
+      phx-change="change"
+      class="mb-16"
+      onkeydown="return event.key != 'Enter';"
+    >
       <div class="relative">
         <input
           id="search-input"
@@ -39,7 +44,7 @@ defmodule BookshelfWeb.LiveFilterLive do
 
     <table class="w-full table-fixed text-left">
       <thead>
-        <tr class="text-dragonhide-100 bg-dragonhide-800 text-xs font-bold uppercase leading-none tracking-wider">
+        <tr class="text-dragonhide-100 bg-dragonhide-800 text-xs font-bold uppercase leading-none tracking-wider [&>th]:p-4">
           <.column_header text="Title" />
           <.column_header text="Author" />
           <.column_header text="Genre" />
@@ -48,17 +53,18 @@ defmodule BookshelfWeb.LiveFilterLive do
         </tr>
       </thead>
       <tbody>
-        <%= for book <- @books do %>
-          <tr class="text-dragonhide-100 bg-dragonhide-400 odd:bg-dragonhide-500 font-serif text-sm leading-normal">
-            <.cell_data><%= book.title %></.cell_data>
-            <.cell_data><%= book.author %></.cell_data>
-            <.cell_data><%= book.genre %></.cell_data>
-            <.cell_data class="font-sans text-xs leading-snug">
-              <.review value={book.review} />
-            </.cell_data>
-            <.cell_data><%= parse_status_and_date_read(book) %></.cell_data>
-          </tr>
-        <% end %>
+        <tr
+          :for={book <- @books}
+          class="text-dragonhide-100 bg-dragonhide-400 odd:bg-dragonhide-500 font-serif text-sm leading-normal [&>td]:p-4"
+        >
+          <.cell_data><%= book.title %></.cell_data>
+          <.cell_data><%= book.author %></.cell_data>
+          <.cell_data><%= book.genre %></.cell_data>
+          <.cell_data class="font-sans text-xs leading-snug">
+            <.review value={book.review} />
+          </.cell_data>
+          <.cell_data><%= parse_status_and_date_read(book) %></.cell_data>
+        </tr>
       </tbody>
     </table>
     """
@@ -68,7 +74,7 @@ defmodule BookshelfWeb.LiveFilterLive do
 
   defp column_header(assigns) do
     ~H"""
-    <th class="p-4"><%= @text %></th>
+    <th><%= @text %></th>
     """
   end
 
@@ -77,7 +83,7 @@ defmodule BookshelfWeb.LiveFilterLive do
 
   defp cell_data(assigns) do
     ~H"""
-    <td class={["p-4", @class]}>
+    <td class={@class}>
       <%= render_slot(@inner_block) %>
     </td>
     """
@@ -93,9 +99,7 @@ defmodule BookshelfWeb.LiveFilterLive do
 
   defp review(assigns) do
     ~H"""
-    <%= for item <- @value do %>
-      <p class="mb-2 last:mb-0"><%= item %></p>
-    <% end %>
+    <p :for={item <- @value} class="mb-2 last:mb-0"><%= item %></p>
     """
   end
 
