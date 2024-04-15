@@ -236,7 +236,7 @@ defmodule BookshelfWeb.ModalLive do
     ~H"""
     <div class="relative">
       <div class={[
-        "bg-gold rounded-full px-4 py-2",
+        "rounded-full px-4 py-2",
         if(@for_modal?, do: "min-w-max", else: "w-fit"),
         parse_status(@status, :color)
       ]}>
@@ -250,7 +250,7 @@ defmodule BookshelfWeb.ModalLive do
 
   @spec pill_text_class :: String.t()
   defp pill_text_class,
-    do: "font-sans text-[0.5625rem] font-bold uppercase leading-none tracking-wider"
+    do: "font-sans text-[0.5625rem] font-bold uppercase leading-none tracking-wider text-white"
 
   @spec transform_date_read(Date.t()) :: String.t()
   defp transform_date_read(date_read) do
