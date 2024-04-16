@@ -17,6 +17,7 @@ Meks McClure (they/them)
 
 ## Presentation & Demo Resources
 
+* [The Bookshelf - Slide Deck.pdf](https://github.com/MMcClure11/bookshelf/files/14997824/The.Bookshelf.-.Meks.McClure.pdf)
 * [Tailwind CSS - Utility first](https://tailwindcss.com/docs/utility-first)
 * [TW Elements Utility first approach](https://tw-elements.com/learn/te-foundations/tailwind-css/utility-first/)
 * [Switching to utility first](https://locastic.com/blog/i-was-wrong-about-utility-first-css-and-here-is-why)
