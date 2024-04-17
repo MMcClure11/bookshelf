@@ -15,9 +15,11 @@ Meks McClure (they/them)
 * [LinkedIn](https://www.linkedin.com/in/meksmcclure/)
 * [email](mmcclure0100@gmail.com)
 
+## Presentation 
+* [The Bookshelf - Slide Deck.pdf](https://github.com/MMcClure11/bookshelf/files/14997824/The.Bookshelf.-.Meks.McClure.pdf)
+
 ## Presentation & Demo Resources
 
-* [The Bookshelf - Slide Deck.pdf](https://github.com/MMcClure11/bookshelf/files/14997824/The.Bookshelf.-.Meks.McClure.pdf)
 * [Tailwind CSS - Utility first](https://tailwindcss.com/docs/utility-first)
 * [TW Elements Utility first approach](https://tw-elements.com/learn/te-foundations/tailwind-css/utility-first/)
 * [Switching to utility first](https://locastic.com/blog/i-was-wrong-about-utility-first-css-and-here-is-why)
@@ -32,6 +34,12 @@ Meks McClure (they/them)
 * [Tailwind Play for Marci’s Status Pill](https://play.tailwindcss.com/Wb1z9pfjmO)
 * [Phoenix.LiveView.JS push/1](https://hexdocs.pm/phoenix_live_view/Phoenix.LiveView.JS.html#push/1)
 * [Tailwind Plugins Adding Variants](https://tailwindcss.com/docs/plugins#adding-variants)
+
+## Further Reading and Resources
+* [Pragmatic Programmers: Modern CSS with Tailwind, Second Edition](https://pragprog.com/titles/tailwind2/modern-css-with-tailwind-second-edition/)
+* [Tailwind Play](https://play.tailwindcss.com/)
+* [Complete Guide to CSS Flex and Grid!](https://shrutibalasa.gumroad.com/l/css-flex-and-grid)
+* [Level Up with Tailwind CSS](https://shrutibalasa.gumroad.com/l/level-up-with-tailwind-css)
 
 ## Development
 
