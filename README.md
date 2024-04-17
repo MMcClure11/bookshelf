@@ -16,7 +16,7 @@ Meks McClure (they/them)
 * [email](mmcclure0100@gmail.com)
 
 ## Presentation 
-* [The Bookshelf - Slide Deck.pdf](https://github.com/MMcClure11/bookshelf/files/14997824/The.Bookshelf.-.Meks.McClure.pdf)
+*[The Bookshelf - Meks McClure.pdf](https://github.com/MMcClure11/bookshelf/files/15010688/The.Bookshelf.-.Meks.McClure.pdf)
 
 ## Presentation & Demo Resources
 
